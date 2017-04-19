@@ -60,11 +60,12 @@ public class GameView extends JPanel implements ActionListener{
         		int x1 = col * size;
         		int y1 = row * size;
         		
-        		char ch = '0';
-       		
+        		//char ch = '0';
+        		int id = 0;
+        		
         		if (zoomOut){
-        			ch = maze.get(row, col);
-        			if (ch >= '5'){
+        			id = maze.get(row, col).getId();
+        			if (id >= 5){
 	        			if (row == currentRow && col == currentCol){
 	        				g2.setColor(Color.YELLOW);
 	        			}else{
@@ -73,11 +74,13 @@ public class GameView extends JPanel implements ActionListener{
         				g2.fillRect(x1, y1, size, size);
         			}
         		}else{
-        			ch = maze.get(currentRow - cellpadding + row, currentCol - cellpadding + col);
+        			id = maze.get(currentRow - cellpadding + row, currentCol - cellpadding + col).getId();
         		}
         		
-        		imageIndex = (int) ch;
-        		imageIndex -= offset;
+        		/*imageIndex = (int) ch;
+        		imageIndex -= offset;*/
+        		imageIndex = id;
+        		
         		if (imageIndex < 0){
         			g2.setColor(Color.LIGHT_GRAY);//Empty cell
         			g2.fillRect(x1, y1, size, size);   			

@@ -8,6 +8,9 @@ import ie.gmit.sw.ai.nn.BackpropagationTrainer;
 import ie.gmit.sw.ai.nn.NeuralNetwork;
 import ie.gmit.sw.ai.nn.Utils;
 import ie.gmit.sw.ai.nn.activator.Activator;
+//The node package was imported from a previous lab.
+import ie.gmit.sw.ai.node.Node;
+
 public class GameRunner implements KeyListener{
 	private static final int MAZE_DIMENSION = 100;
 	private static final int IMAGE_COUNT = 14;
@@ -23,12 +26,14 @@ public class GameRunner implements KeyListener{
     	Sprite[] sprites = getSprites();
     	view.setSprites(sprites);
     	
+    	//2d array taken from game.txt given to us in a lab
     	double[][] data = { //Health, Sword, Gun, Enemies
     			{ 2, 0, 0, 0 }, { 2, 0, 0, 1 }, { 2, 0, 1, 1 }, { 2, 0, 1, 2 }, { 2, 1, 0, 2 },
     			{ 2, 1, 0, 1 }, { 1, 0, 0, 0 }, { 1, 0, 0, 1 }, { 1, 0, 1, 1 }, { 1, 0, 1, 2 }, 
     			{ 1, 1, 0, 2 }, { 1, 1, 0, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 1 }, { 0, 0, 1, 1 }, 
     			{ 0, 0, 1, 2 }, { 0, 1, 0, 2 }, { 0, 1, 0, 1 } };
     	
+    	//2d array taken from game.txt given to us in a lab
     	double[][] expected = { //Panic, Attack, Hide, Run
     			{ 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { 1.0, 0.0, 0.0, 0.0 }, { 1.0, 0.0, 0.0, 0.0 }, 
     			{ 0.0, 0.0, 0.0, 1.0 }, { 1.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 }, 
@@ -42,10 +47,9 @@ public class GameRunner implements KeyListener{
     	trainer.train(data, expected, 0.6, 10000);
     	
     	int testIndex = 11;
-    	double[] result = 
-    	nn.process(data[testIndex]);
+    	double[] result = nn.process(data[testIndex]);
     	for (int i = 0; i < expected[testIndex].length; i++){
-    	System.out.print(expected[testIndex][i] + ",");
+    		System.out.print(expected[testIndex][i] + ",");
     	}
     	System.out.println("==>" + (Utils.getMaxIndex(result) + 1));
     	
@@ -70,7 +74,8 @@ public class GameRunner implements KeyListener{
 	private void placePlayer(){   	
     	currentRow = (int) (MAZE_DIMENSION * Math.random());
     	currentCol = (int) (MAZE_DIMENSION * Math.random());
-    	model.set(currentRow, currentCol, '5'); //A Spartan warrior is at index 5
+    	//The spartan warrior is now a node instead of a character.
+    	model.set(currentRow, currentCol, new Node(currentRow, currentCol, 5)); //A Spartan warrior is at index 5
     	updateView(); 		
 	}
 	
@@ -101,9 +106,9 @@ public class GameRunner implements KeyListener{
 
     
 	private boolean isValidMove(int row, int col){
-		if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col) == ' '){
-			model.set(currentRow, currentCol, '\u0020');
-			model.set(row, col, '5');
+		if (row <= model.size() - 1 && col <= model.size() - 1 && model.get(row, col).getId() == -1){
+			model.set(currentRow, currentCol, new Node(currentRow, currentCol, -1));
+			model.set(row, col, new Node(row, col, 5));
 			return true;
 		}else{
 			return false; //Can't move
