@@ -13,6 +13,8 @@ public class Node {
 	public boolean goal;
 	private int row = -1;
 	private int col = -1;
+	
+
 	private int id = -1;
 	private int distance;
 	
@@ -38,6 +40,14 @@ public class Node {
 
 	public int getCol() {
 		return col;
+	}
+	
+	public void setRow(int row) {
+		this.row = row;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
 	}
 
 	public Node getParent() {
