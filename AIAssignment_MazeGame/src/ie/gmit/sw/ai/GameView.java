@@ -16,7 +16,7 @@ public class GameView extends JPanel implements ActionListener{
 	private int currentCol;
 	private boolean zoomOut = false;
 	private int imageIndex = -1;
-	private int offset = 48; //The number 0 is ASCII 48.
+	//private int offset = 48; //The number 0 is ASCII 48.
 	private Color[] reds = {new Color(255,160,122), new Color(139,0,0), new Color(255, 0, 0)}; //Animate enemy "dots" to make them easier to see
 	
 	public GameView(Maze maze) throws Exception{

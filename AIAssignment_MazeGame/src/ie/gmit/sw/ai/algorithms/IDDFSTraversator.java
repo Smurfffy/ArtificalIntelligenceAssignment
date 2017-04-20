@@ -3,7 +3,7 @@ import java.awt.Color;
 
 
 
-import ie.gmit.sw.ai.*;
+//import ie.gmit.sw.ai.*;
 import ie.gmit.sw.ai.node.*;
 public class IDDFSTraversator implements Traversator{
 	private Node[][] maze;
