@@ -1,7 +1,7 @@
 FUNCTION_BLOCK Project
 
 	VAR_INPUT
-	 	health : REAL;
+	 	energy : REAL;
 	END_VAR
 	
 	
