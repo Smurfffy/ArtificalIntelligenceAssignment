@@ -1,28 +1,25 @@
 package ie.gmit.sw.ai.algorithms;
 
-//Extracted from Uninformed search visualisation lab on moodle
-//import ie.gmit.sw.ai.*;
-import ie.gmit.sw.ai.node.Node;
+import ie.gmit.sw.ai.node.*;
 
 import java.util.*;
-public class BruteForceTraversator implements Traversator{
-	private boolean dfs = false;
+public class BestFirstTraversator implements Traversator{
+	private Node goal;
 	
-	public BruteForceTraversator(boolean depthFirst){
-		this.dfs = depthFirst;
-		//SoundEffects.init();
+	public BestFirstTraversator(Node goal){
+		this.goal = goal;
 	}
 	
 	public void traverse(Node[][] maze, Node node) {
+		LinkedList<Node> queue = new LinkedList<Node>();
+		queue.addFirst(node);
+		
         long time = System.currentTimeMillis();
     	int visitCount = 0;
     	
-		Deque<Node> queue = new LinkedList<Node>();
-		queue.offer(node);
-		
-		while (!queue.isEmpty()){
+		while(!queue.isEmpty()){
 			node = queue.poll();
-			node.setVisited(true);
+			node.setVisited(true);	
 			visitCount++;
 			
 			if (node.isGoalNode()){
@@ -31,8 +28,8 @@ public class BruteForceTraversator implements Traversator{
 				break;
 			}
 			
-			try { //Simulate processing each expanded node				
-				Thread.sleep(10);						
+			try { //Simulate processing each expanded node
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -41,17 +38,14 @@ public class BruteForceTraversator implements Traversator{
 			for (int i = 0; i < children.length; i++) {
 				if (children[i] != null && !children[i].isVisited()){
 					children[i].setParent(node);
-					if (dfs){
-						queue.addFirst(children[i]);
-					}else{
-						queue.addLast(children[i]);
-					}
-				}									
-			}			
+					queue.addFirst(children[i]);
+				}
+			}
+			
+			//Sort the whole queue. Effectively a priority queue, first in, best out
+			Collections.sort(queue,(Node current, Node next) -> current.getHeuristic(goal) - next.getHeuristic(goal));		
 		}
 	}
-
-
 
 	@Override
 	public Node getNextNode() {
