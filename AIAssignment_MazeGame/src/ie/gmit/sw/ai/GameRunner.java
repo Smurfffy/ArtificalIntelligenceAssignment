@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import ie.gmit.sw.ai.nn.BackpropagationTrainer;
 import ie.gmit.sw.ai.nn.NeuralNetwork;
+import ie.gmit.sw.ai.nn.SpartanWarriorNeuralNet;
 import ie.gmit.sw.ai.nn.Utils;
 import ie.gmit.sw.ai.nn.activator.Activator;
 //The node package was imported from a previous lab.
@@ -139,5 +140,8 @@ public class GameRunner implements KeyListener{
 	
 	public static void main(String[] args) throws Exception{
 		new GameRunner();
+		
+		SpartanWarriorNeuralNet spartan = new SpartanWarriorNeuralNet();
+		spartan.action(2, 1, 1, 1);
 	}
 }
