@@ -142,6 +142,6 @@ public class GameRunner implements KeyListener{
 		new GameRunner();
 		
 		SpartanWarriorNeuralNet spartan = new SpartanWarriorNeuralNet();
-		spartan.action(2, 1, 1, 1);
+		spartan.action(2, 0, 0, 0);
 	}
 }
