@@ -15,7 +15,7 @@ public class Runner {
 		fis.setVariable("damage", 9);
 		fis.evaluate();
 		Variable damage = fb.getVariable("damage");
-		System.out.println("damage?" + damage.getValue() + "%");
+		System.out.println("damage: " + damage.getValue() + "%");
 		JFuzzyChart.get().chart(damage, true);
 		JFuzzyChart.get().chart(damage.getDefuzzifier(), "Result damage (%)", true);
 	}
